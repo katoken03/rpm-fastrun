@@ -25,5 +25,5 @@ The built RPM will be in `~/rpmbuild/RPMS/x86_64/`.
 ## Installation
 
 ```bash
-sudo dnf install fastrun-1.0.0-1.fc*.x86_64.rpm
+sudo dnf install fastrun-0.1.0-1.fc*.x86_64.rpm
 ```

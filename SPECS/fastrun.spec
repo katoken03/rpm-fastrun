@@ -1,5 +1,5 @@
 Name:           fastrun
-Version:        1.0.0
+Version:        0.1.0
 Release:        1%{?dist}
 Summary:        Fast command launcher tool for developers
 
