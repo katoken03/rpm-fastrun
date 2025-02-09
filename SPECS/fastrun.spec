@@ -7,9 +7,9 @@ Summary:        Fast command launcher tool for developers
 
 License:        MIT
 URL:            https://github.com/katoken03/fastrun
-Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  golang
+BuildRequires:  git
 Requires:       fzf
 
 %description
@@ -17,7 +17,10 @@ A command launcher tool that helps developers run npm scripts and make targets
 without remembering exact command names.
 
 %prep
-%autosetup
+rm -rf %{name}-%{version}
+git clone https://github.com/katoken03/fastrun.git %{name}-%{version}
+cd %{name}-%{version}
+git checkout v%{version}
 
 %build
 go build -o %{name} .
@@ -28,7 +31,6 @@ install -m 755 %{name} %{buildroot}%{_bindir}/%{name}
 
 %files
 %{_bindir}/%{name}
-%license LICENSE
 %doc README.md
 
 %changelog
