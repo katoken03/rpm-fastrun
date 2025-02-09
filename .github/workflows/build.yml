@@ -1,0 +1,42 @@
+name: Build RPM Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-rpm:
+    runs-on: ubuntu-latest
+    container: fedora:latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          dnf install -y \
+            rpm-build \
+            rpmdevtools \
+            golang \
+            git \
+            make
+
+      - name: Set up RPM build environment
+        run: |
+          rpmdev-setuptree
+          cp SPECS/fastrun.spec ~/rpmbuild/SPECS/
+          
+      - name: Prepare source
+        run: |
+          version=$(echo $GITHUB_REF | cut -d / -f 3 | sed 's/^v//')
+          curl -L https://github.com/katoken03/fastrun/archive/v${version}.tar.gz -o ~/rpmbuild/SOURCES/fastrun-${version}.tar.gz
+
+      - name: Build RPM
+        run: rpmbuild -ba ~/rpmbuild/SPECS/fastrun.spec
+
+      - name: Upload RPM
+        uses: actions/upload-artifact@v4
+        with:
+          name: rpm-package
+          path: ~/rpmbuild/RPMS/x86_64/fastrun-*.rpm
