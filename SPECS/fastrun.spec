@@ -23,6 +23,7 @@ cd %{name}-%{version}
 git checkout v%{version}
 
 %build
+cd %{name}-%{version}
 go build -o %{name} .
 
 %install
