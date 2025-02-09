@@ -18,7 +18,7 @@ without remembering exact command names.
 %autosetup
 
 %build
-go build -o %{name} ./cmd/fastrun
+go build -o %{name} .
 
 %install
 mkdir -p %{buildroot}%{_bindir}
